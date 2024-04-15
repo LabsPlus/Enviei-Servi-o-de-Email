@@ -35,18 +35,6 @@ describe('KeyService', () => {
         expect(result).toBeTruthy();
     });
 
-    it('should create a key', async () => {
-        const keyData: IKey = {
-            value: 'testKey',
-            id: 0,
-            name: '',
-            user_id: 0
-        };
-        (KeyDao.prototype.createKey as jest.Mock).mockResolvedValueOnce(keyData);
-        const createdKey = await keyService.createKey(keyData);
-        expect(createdKey).toEqual(keyData);
-    });
-
     it('should get a key by ID', async () => {
         const keyId = 1;
         const mockKeyData: IKey = {

@@ -11,26 +11,25 @@ describe('KeyDao', () => {
         keyDao = new KeyDao();
     });
 
-    it('should create a key', async () => {
+    it('should check if a key exists', async () => {
         // Dados da chave para criação
         const keyData: IKey = {
             value: 'testKey',
-            id: 0,
+            id: 1,
             name: '',
             user_id: 0
         };
 
-        // Mock da função createKey para retornar a chave criada
-        (keyDao.createKey as jest.Mock).mockResolvedValue(keyData);
+        // Mock da função keyExists para retornar true
+        (keyDao.keyExists as jest.Mock).mockResolvedValue(true);
 
-        // Criar a chave
-        const createdKey = await keyDao.createKey(keyData);
+        // Verificar se a chave existe
+        const keyExists = await keyDao.keyExists(keyData.value);
 
-        // Verificar se a chave foi criada corretamente
-        expect(createdKey).toBeTruthy();
-        expect(createdKey.value).toBe(keyData.value);
+        // Verificar se a chave existe
+        expect(keyExists).toBeTruthy();
     });
-
+    
     it('should get a key by ID', async () => {
         // Dados da chave para criação
         const keyData: IKey = {

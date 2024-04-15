@@ -41,30 +41,6 @@ export default class KeyService {
 
     }
 
-    public async createKey(keyData: IKey): Promise<IKey> {
-
-        try {
-
-            if (!keyData.value) {
-                throw new Error('Chave não pode ser vazia');
-            }
-
-            else if (await this.keyExists(keyData.value)) {
-                throw new Error('Chave já existe');
-            }
-
-            else {
-                
-                keyData.value = await this.encriptKey(keyData.value);
-
-                const key = await this.keyDao.createKey(keyData);
-
-                return key;
-            }
-        } catch (error) {
-            throw new Error(`Erro ao criar chave: ${error}`);
-        }
-    }
 
     public async getKeyById(id: number): Promise<IKey | null> {
         try {
@@ -72,23 +48,6 @@ export default class KeyService {
             return key;
         } catch (error) {
             throw new Error(`Erro ao buscar chave por ID: ${error}`);
-        }
-    }
-
-    public async updateKey(id: number, keyData: Partial<IKey>): Promise<IKey | null> {
-        try {
-            const key = await this.keyDao.updateKey(id, keyData);
-            return key;
-        } catch (error) {
-            throw new Error(`Erro ao atualizar chave: ${error}`);
-        }
-    }
-
-    public async deleteKey(id: number): Promise<void> {
-        try {
-            await this.keyDao.deleteKey(id);
-        } catch (error) {
-            throw new Error(`Erro ao excluir chave: ${error}`);
         }
     }
 
